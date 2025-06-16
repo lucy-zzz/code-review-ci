@@ -18,3 +18,9 @@ func (s *VehicleDefault) FindAll() (v map[int]internal.Vehicle, err error) {
 	v, err = s.rp.FindAll()
 	return
 }
+
+func (s *VehicleDefault) GetAverageSpeedByBrand(b string) (speed float64, err error) {
+	speed, err = s.rp.GetAverageSpeedByBrand(b)
+
+	return speed, err
+}

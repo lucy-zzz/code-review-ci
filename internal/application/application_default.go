@@ -72,6 +72,7 @@ func (a *ServerChi) Run() (err error) {
 	rt.Route("/vehicles", func(rt chi.Router) {
 		// - GET /vehicles
 		rt.Get("/", hd.GetAll())
+		rt.Get("/average_speed/brand/{brand}", hd.GetAverageSpeedByBrand())
 	})
 
 	// run server

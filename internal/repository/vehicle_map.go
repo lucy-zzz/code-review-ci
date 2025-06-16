@@ -1,6 +1,9 @@
 package repository
 
-import "app/internal"
+import (
+	"app/internal"
+	"fmt"
+)
 
 // NewVehicleMap is a function that returns a new instance of VehicleMap
 func NewVehicleMap(db map[int]internal.Vehicle) *VehicleMap {
@@ -28,4 +31,24 @@ func (r *VehicleMap) FindAll() (v map[int]internal.Vehicle, err error) {
 	}
 
 	return
+}
+
+func (r *VehicleMap) GetAverageSpeedByBrand(b string) (speed float64, err error) {
+	var sum float64
+	var sumCount int64
+
+	for _, v := range r.db {
+		if v.Brand == b {
+			sum += v.MaxSpeed
+			sumCount++
+		}
+	}
+
+	if sumCount == 0 {
+		return speed, fmt.Errorf("")
+	}
+
+	speed = sum / float64(sumCount)
+
+	return speed, err
 }

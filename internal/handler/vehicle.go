@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/bootcamp-go/web/response"
+	"github.com/go-chi/chi/v5"
 )
 
 // VehicleJSON is a struct that represents a vehicle in JSON format
@@ -73,6 +74,28 @@ func (h *VehicleDefault) GetAll() http.HandlerFunc {
 		response.JSON(w, http.StatusOK, map[string]any{
 			"message": "success",
 			"data":    data,
+		})
+	}
+
+}
+
+func (h *VehicleDefault) GetAverageSpeedByBrand() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		brand := chi.URLParam(r, "brand")
+
+		average, err := h.sv.GetAverageSpeedByBrand(brand)
+
+		if err != nil {
+			response.JSON(w, http.StatusNotFound, map[string]any{
+				"message": "404 Not Found: Nenhum veículo encontrado dessa marca.",
+			})
+
+			return
+		}
+
+		response.JSON(w, http.StatusOK, map[string]any{
+			"message": "ok",
+			"data":    average,
 		})
 	}
 }
