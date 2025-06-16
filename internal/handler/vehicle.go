@@ -76,9 +76,3 @@ func (h *VehicleDefault) GetAll() http.HandlerFunc {
 		})
 	}
 }
-
-func (h *VehicleDefault) Create() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-
-	}
-}
